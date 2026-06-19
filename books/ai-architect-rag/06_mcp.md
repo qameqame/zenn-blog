@@ -526,6 +526,6 @@ Claude Desktopを再起動すると、チャット画面から直接 `search_doc
 
 ## 参考
 
-- [第1回: pgvectorとGeminiで作るRAGパイプライン](https://zenn.dev/qame/articles/ad2fafe66a50ad)
+- [第2章: RAG・Embedding・Vector DBの実装](./02_rag)
 - [FastMCP ドキュメント](https://gofastmcp.com)
 - [MCP 公式仕様](https://modelcontextprotocol.io)

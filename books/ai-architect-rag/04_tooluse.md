@@ -4,7 +4,7 @@ title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
 
 ## はじめに
 
-[第3章](./03_architect)では、pgvectorとGeminiを使ってRAGパイプラインを実装しました。そのシステムでは「毎回必ずsearchしてからLLMに渡す」という固定フローでした。
+[第2章](./02_rag)では、pgvectorとGeminiを使ってRAGパイプラインを実装しました。そのシステムでは「毎回必ずsearchしてからLLMに渡す」という固定フローでした。
 
 ```
 【前回 05_rag.py】固定フロー
@@ -24,7 +24,7 @@ title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
 
 ## 前提条件
 
-- [第3章](./03_architect)のpgvectorチュートリアル完了済み（DBにドキュメントが格納されている）
+- [第2章](./02_rag)のpgvectorチュートリアル完了済み（DBにドキュメントが格納されている）
 - `.venv` が有効化済み
 - `.env` が設定済み
 
@@ -794,5 +794,6 @@ python 08_tool_agent.py
 
 ## 参考
 
-- [前回記事: pgvectorとGeminiで作るRAGパイプライン](https://zenn.dev/qame/articles/ad2fafe66a50ad)
+- [第2章: pgvectorとGeminiで作るRAGパイプライン](./02_rag)
+[第3章](./03_architect)
 - [Google Gemini Function Calling ドキュメント](https://ai.google.dev/gemini-api/docs/function-calling)

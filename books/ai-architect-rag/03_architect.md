@@ -1,5 +1,5 @@
 ---
-title: "AIアーキテクト視点で読み解くRAG設計"
+title: "アーキテクト視点で読み解くRAG設計"
 ---
 
 ## はじめに
@@ -138,7 +138,7 @@ task_type="RETRIEVAL_DOCUMENT"
 task_type="RETRIEVAL_QUERY"
 ```
 
-これはGemini固有の機能ですが、アーキテクト視点では **「非対称な類似度計算」** の概念として理解します。
+これはGemini固有の機能ですが、この２つの関係は **「非対称な類似度計算」** の概念として理解します。
 
 ```
 問題: ドキュメントとクエリは性質が異なる
@@ -292,6 +292,5 @@ def get_embedding_with_cache(text: str, cache: dict) -> list[float]:
 
 ## 参考
 
-- [前回記事: pgvectorとGeminiで作るRAGパイプライン](https://zenn.dev/qame/articles/ad2fafe66a50ad)
 - [pgvector GitHub](https://github.com/pgvector/pgvector)
 - [Gemini Embedding API ドキュメント](https://ai.google.dev/gemini-api/docs/embeddings)

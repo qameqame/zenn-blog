@@ -858,5 +858,5 @@ python 11_agent_planner.py
 
 ## 参考
 
-- [第1回: pgvectorとGeminiで作るRAGパイプライン](https://zenn.dev/qame/articles/ad2fafe66a50ad)
+- [第2章: RAG・Embedding・Vector DBの実装](./02_rag)
 - [Google Gemini Function Calling ドキュメント](https://ai.google.dev/gemini-api/docs/function-calling)

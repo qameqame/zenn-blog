@@ -1,4 +1,4 @@
-title: "AIアーキテクトのためのRAG実装ガイド"
+title: "AI技術者のためのRAG実装ガイド"
 summary: "pgvectorとGeminiを使ってRAG・Tool Use・AI Agents・MCPをゼロから実装するハンズオン"
 topics: ["AI", "RAG", "pgvector", "MCP", "Python"]
 published: true
