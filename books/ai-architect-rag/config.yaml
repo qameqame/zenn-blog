@@ -1,5 +1,5 @@
-title: "AI技術者のためのRAG実装ガイド"
-summary: "pgvectorとGeminiを使ってRAG・Tool Use・AI Agents・MCPをゼロから実装するハンズオン"
+title: "AI初学者のためのRAG実装ガイド"
+summary: "AIエンジニア・AIアーキテクトを目指す方に向けて、RAG・Embedding・Vector DB・Tool Use・AI Agents・MCPをゼロから実装するハンズオンガイドです。pgvectorとGemini APIを使って手を動かしながら、AI技術の核心を体系的に学べます。"
 topics: ["AI", "RAG", "pgvector", "MCP", "Python"]
 published: true
 price: 0
