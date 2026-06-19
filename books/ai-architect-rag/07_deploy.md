@@ -1,5 +1,5 @@
 ---
-title: "クラウドデプロイ — Render × Supabase で本番環境を作る"
+title: "MCPサーバーをクラウドに公開する — Render × Supabase 実践"
 ---
 
 ## はじめに

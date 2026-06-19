@@ -795,5 +795,4 @@ python 08_tool_agent.py
 ## 参考
 
 - [第2章: pgvectorとGeminiで作るRAGパイプライン](./02_rag)
-[第3章](./03_architect)
 - [Google Gemini Function Calling ドキュメント](https://ai.google.dev/gemini-api/docs/function-calling)
