@@ -2,23 +2,19 @@
 title: "クラウドデプロイ — Render × Supabase で本番環境を作る"
 ---
 
-## MCPサーバーをクラウドにデプロイする
-
-
----
-
 ## はじめに
 
-ローカルで動いていたMCPサーバーをインターネット上に公開します。
+[第6章](./06_mcp)では、pgvectorの検索機能をMCPサーバーとして公開し、Claude Desktopからローカルで使えるようになりました。しかしこの構成はあくまでローカル環境限定です。
 
 ```
-【今まで】ローカル環境
+【第6章まで】ローカル環境
 Claude Desktop → localhost:8000 → pgvector（Docker）
 
-【今回】クラウド環境
+【今章】クラウド環境
 Claude Desktop → https://your-app.onrender.com/mcp → Supabase（pgvector）
 ```
 
+本章では、MCPサーバーをRenderにデプロイし、pgvectorデータベースをSupabaseに移行することで、インターネット越しに使えるMCPサーバーを構築します。どちらもクレジットカード不要の無料枠で動かせます。
 使うサービスと無料枠：
 
 | サービス | 役割 | 無料枠 |

@@ -2,13 +2,9 @@
 title: "pgvectorの検索機能をMCPサーバーとして公開する"
 ---
 
----
-title: "pgvectorの検索機能をMCPサーバーとして公開する"
----
-
 ## はじめに
 
-前回までのTool Useでは、`search_documents()` などのツール定義をPythonファイルの中に直書きしていました。
+[第5章](./05_agents)までで、Tool Useを使ってLLMが自律的にツールを呼び出す仕組みを実装しました。しかし`search_documents()` などのツール定義はPythonファイルの中に直書きしており、そのプロジェクトだけでしか使えない状態でした。
 
 ```
 【Tool Use】

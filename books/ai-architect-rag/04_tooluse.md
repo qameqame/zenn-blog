@@ -8,7 +8,7 @@ title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
 
 ## はじめに
 
-[前回の記事](https://zenn.dev/qame/articles/bcc639e4c3e9b8)では、pgvectorとGeminiを使ってRAGパイプラインを実装しました。そのシステムでは「毎回必ずsearchしてからLLMに渡す」という固定フローでした。
+[第3章](./03_architect)では、pgvectorとGeminiを使ってRAGパイプラインを実装しました。そのシステムでは「毎回必ずsearchしてからLLMに渡す」という固定フローでした。
 
 ```
 【前回 05_rag.py】固定フロー
@@ -28,7 +28,7 @@ title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
 
 ## 前提条件
 
-- [前回の記事](https://zenn.dev/qame/articles/ad2fafe66a50ad)のpgvectorチュートリアル完了済み（DBにドキュメントが格納されている）
+- [第3章](./03_architect)のpgvectorチュートリアル完了済み（DBにドキュメントが格納されている）
 - `.venv` が有効化済み
 - `.env` が設定済み
 
