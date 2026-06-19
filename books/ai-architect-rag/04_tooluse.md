@@ -1,3 +1,11 @@
+---
+title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
+---
+
+---
+title: "Tool Use実装ガイド — LLMに検索を自律判断させる"
+---
+
 ## はじめに
 
 [前回の記事](https://zenn.dev/qame/articles/bcc639e4c3e9b8)では、pgvectorとGeminiを使ってRAGパイプラインを実装しました。そのシステムでは「毎回必ずsearchしてからLLMに渡す」という固定フローでした。

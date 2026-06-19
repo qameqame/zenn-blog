@@ -1,3 +1,11 @@
+---
+title: "複数ツールを自律的に組み合わせるAI Agentsの実装"
+---
+
+---
+title: "複数ツールを自律的に組み合わせるAI Agentsの実装"
+---
+
 ## はじめに
 
 [前回の記事](https://zenn.dev/qame/articles/4eccc2cd5ba4a7)のTool Useでは、LLMが `search_documents` や `search_by_category` を自律的に呼び出す仕組みを実装しました。ただし、使えるツールは「検索」の1種類だけでした。

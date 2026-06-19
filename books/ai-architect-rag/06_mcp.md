@@ -1,3 +1,11 @@
+---
+title: "pgvectorの検索機能をMCPサーバーとして公開する"
+---
+
+---
+title: "pgvectorの検索機能をMCPサーバーとして公開する"
+---
+
 ## はじめに
 
 前回までのTool Useでは、`search_documents()` などのツール定義をPythonファイルの中に直書きしていました。
