@@ -11,23 +11,20 @@ title: "クラウドデプロイ — Render × Supabase で本番環境を作る
 Claude Desktop → localhost:8000 → pgvector（Docker）
 
 【今章】クラウド環境
-Claude Desktop → https://your-app.onrender.com/mcp → Supabase（pgvector）
+Python Agent → https://your-app.onrender.com/mcp → Supabase（pgvector）
 ```
 
-本章では、MCPサーバーをRenderにデプロイし、pgvectorデータベースをSupabaseに移行することで、インターネット越しに使えるMCPサーバーを構築します。どちらもクレジットカード不要の無料枠で動かせます。
-使うサービスと無料枠：
+本章では、MCPサーバーをRenderにデプロイし、pgvectorデータベースをSupabaseに移行します。どちらもクレジットカード不要の無料枠で動かせます。
+
+> **Claude DesktopとHTTPモードについて:**
+> 現時点でClaude DesktopはMCPのHTTPトランスポートに対応していません。
+> クラウドデプロイしたMCPサーバーはPythonスクリプト（`13_mcp_http_agent.py`）から接続します。
+> Claude Desktopからは引き続きstdioモード（`server.py`）を使います。
 
 | サービス | 役割 | 無料枠 |
 |----------|------|--------|
-| **Render** | MCPサーバーのホスティング | Webサービス永続無料（スリープあり） |
+| **Render** | MCPサーバーのホスティング | Webサービス永続無料（15分でスリープ） |
 | **Supabase** | pgvectorデータベース | 500MB・永続（7日無操作でポーズ） |
-
-どちらもクレジットカード不要です。
-
-> **注意点:**
-> - Renderの無料Webサービスは15分間アクセスがないとスリープします（再起動30〜60秒）
-> - Supabaseの無料プロジェクトは7日間APIアクセスがないとポーズします（手動で再開可能）
-> - 学習・デモ目的には十分です
 
 ---
 
@@ -39,7 +36,7 @@ Step 2: ローカルのデータをSupabaseに移行
 Step 3: MCPサーバーをRender用に修正
 Step 4: GitHubにプッシュ
 Step 5: Renderにデプロイ
-Step 6: Claude Desktopから接続確認
+Step 6: Pythonエージェントから接続確認
 ```
 
 ---
@@ -48,20 +45,17 @@ Step 6: Claude Desktopから接続確認
 
 ### 1-1. プロジェクト作成
 
-1. [supabase.com](https://supabase.com) にアクセス → 「Start your project」
-2. GitHubアカウントでサインアップ
-3. 「New project」をクリック
-4. 以下を設定：
+1. [supabase.com](https://supabase.com) にアクセス → GitHubアカウントでサインアップ
+2. 「New project」をクリック
+3. 以下を設定：
    - **Name:** `pgvector-tutorial`
-   - **Database Password:** 任意のパスワード（後で使うので控えておく）
+   - **Database Password:** 任意のパスワード（後で使うので必ず控えておく）
    - **Region:** `Northeast Asia (Tokyo)`
-5. 「Create new project」をクリック（2〜3分かかります）
+4. 「Create new project」をクリック（2〜3分かかります）
 
 ### 1-2. pgvector拡張を有効化
 
-Supabaseはデフォルトでpgvectorが使えますが、明示的に有効化します。
-
-ダッシュボードの「SQL Editor」を開いて以下を実行：
+左サイドバーの **`>_`（SQL Editor）** を開いて以下を実行：
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -92,30 +86,37 @@ WITH (m = 16, ef_construction = 64);
 CREATE INDEX ON documents (category);
 ```
 
-### 1-4. 接続情報を取得
+### 1-4. 接続情報を取得（重要: Connection Poolerを使う）
 
-ダッシュボードの「Settings」→「Database」→「Connection parameters」から以下をコピー：
+> **⚠️ ここでハマりやすいポイント:**
+> 通常のDB接続URL（ポート5432）を使うと、RenderからSupabaseへの接続がIPv6問題で失敗します。
+> 必ず **Connection Pooler（ポート6543）** のURLを使ってください。
+
+画面上部の **「Connect」** ボタンをクリックします。
+
+> `Settings` → `Database` の中には接続情報が見つかりにくい場合があります。
+> 画面上部の緑色の「Connect」ボタンが確実です。
+
+「Connect」ダイアログで **「Connection pooling」** タブを選択し、**「Transaction」** モードのURIをコピーします。
+
+URLはこのような形式です：
 
 ```
-Host:     db.xxxxxxxxxxxx.supabase.co
-Port:     5432
-Database: postgres
-User:     postgres
-Password: （Step 1-1で設定したパスワード）
+postgresql://postgres.xxxx:パスワード@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres
 ```
 
-> **Supabaseの接続文字列（URI形式）も使えます:**
-> `Settings` → `Database` → `Connection string` → `URI` からコピーできます
+| 比較 | 通常接続 | Connection Pooler |
+|------|---------|-------------------|
+| ポート | 5432 | **6543** |
+| ホスト | `db.xxxx.supabase.co` | `aws-0-xxx.pooler.supabase.com` |
+| IPv6問題 | ❌ Renderで失敗する | ✅ IPv4で安定動作 |
+| Render向け | ❌ | ✅ |
 
 ---
 
 ## Step 2: ローカルのデータをSupabaseに移行
 
-ローカルのpgvectorに格納したドキュメントをSupabaseに移行します。
-
 ### 2-1. `.env` にSupabaseの接続情報を追加
-
-`.env` ファイルを以下のように更新：
 
 ```
 # Gemini API
@@ -128,12 +129,8 @@ DB_NAME=vectordb
 DB_USER=postgres
 DB_PASSWORD=password
 
-# Supabase（新規追加）
-SUPABASE_HOST=db.xxxxxxxxxxxx.supabase.co
-SUPABASE_PORT=5432
-SUPABASE_DB=postgres
-SUPABASE_USER=postgres
-SUPABASE_PASSWORD=（Supabaseのパスワード）
+# Supabase（Connection Pooler URLを使う）
+DATABASE_URL=postgresql://postgres.xxxx:パスワード@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres
 ```
 
 ### 2-2. データ移行スクリプト — `migrate_to_supabase.py`
@@ -156,13 +153,9 @@ local_conn = psycopg2.connect(
 )
 local_cur = local_conn.cursor()
 
-# ── Supabaseに接続 ────────────────────────────────────────────
+# ── Supabaseに接続（Connection Pooler経由） ───────────────────
 supa_conn = psycopg2.connect(
-    host=os.getenv("SUPABASE_HOST"),
-    port=os.getenv("SUPABASE_PORT"),
-    dbname=os.getenv("SUPABASE_DB"),
-    user=os.getenv("SUPABASE_USER"),
-    password=os.getenv("SUPABASE_PASSWORD"),
+    os.getenv("DATABASE_URL"),
     sslmode="require",  # Supabaseは SSL必須
 )
 supa_cur = supa_conn.cursor()
@@ -184,7 +177,6 @@ for row in rows:
 supa_conn.commit()
 print("移行完了！")
 
-# 確認
 supa_cur.execute("SELECT COUNT(*) FROM documents;")
 count = supa_cur.fetchone()[0]
 print(f"Supabase内のドキュメント数: {count}")
@@ -195,15 +187,16 @@ supa_conn.close()
 
 ```bash
 python migrate_to_supabase.py
+# => 移行するドキュメント数: 5
+# => 移行完了！
+# => Supabase内のドキュメント数: 5
 ```
 
 ---
 
 ## Step 3: MCPサーバーをRender用に修正
 
-### 3-1. Render用のサーバーファイルを作成 — `mcp_server/server_render.py`
-
-`server_http.py` をベースに、DB接続をSupabaseに変更します。
+`mcp_server/server_render.py` を作成します。`server_http.py` との違いは DB接続部分と `PORT` 環境変数の対応だけです。
 
 ```python
 # mcp_server/server_render.py
@@ -224,23 +217,21 @@ mcp = FastMCP(
 
 gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# ── DB接続（環境変数から取得） ──────────────────────────────────
-# ローカル: DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
-# Render:  DATABASE_URL（Renderが自動設定、またはSupabaseのURLを設定）
+# ── DB接続（DATABASE_URL環境変数を使う） ──────────────────────
+# RenderのダッシュボードでDATABASE_URLを設定する
+# 必ずSupabaseのConnection Pooler URL（ポート6543）を使うこと
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
-    # Render / Supabase の接続文字列を使う
     conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 else:
-    # ローカル用フォールバック
+    # ローカルテスト用フォールバック
     conn = psycopg2.connect(
-        host=os.getenv("SUPABASE_HOST", os.getenv("DB_HOST")),
-        port=os.getenv("SUPABASE_PORT", os.getenv("DB_PORT")),
-        dbname=os.getenv("SUPABASE_DB", os.getenv("DB_NAME")),
-        user=os.getenv("SUPABASE_USER", os.getenv("DB_USER")),
-        password=os.getenv("SUPABASE_PASSWORD", os.getenv("DB_PASSWORD")),
-        sslmode="require",
+        host=os.getenv("DB_HOST", "localhost"),
+        port=os.getenv("DB_PORT", "5432"),
+        dbname=os.getenv("DB_NAME", "vectordb"),
+        user=os.getenv("DB_USER", "postgres"),
+        password=os.getenv("DB_PASSWORD", "password"),
     )
 
 cur = conn.cursor()
@@ -266,9 +257,6 @@ def search_documents(query: str, top_k: int = 3) -> list[dict]:
     Args:
         query: 検索クエリ
         top_k: 取得するドキュメント数（デフォルト: 3）
-
-    Returns:
-        タイトル・本文・カテゴリ・類似度スコアのリスト
     """
     query_embedding = get_embedding(query)
     cur.execute("""
@@ -294,9 +282,6 @@ def search_by_category(query: str, category: str, top_k: int = 3) -> list[dict]:
         query: 検索クエリ
         category: カテゴリ名（ML / Python / Cloud）
         top_k: 取得するドキュメント数（デフォルト: 3）
-
-    Returns:
-        タイトル・本文・カテゴリ・類似度スコアのリスト
     """
     query_embedding = get_embedding(query)
     cur.execute("""
@@ -316,12 +301,7 @@ def search_by_category(query: str, category: str, top_k: int = 3) -> list[dict]:
 
 @mcp.tool
 def list_categories() -> list[dict]:
-    """
-    DBに存在するカテゴリとドキュメント数の一覧を返す。
-
-    Returns:
-        カテゴリ名とドキュメント数のリスト
-    """
+    """DBに存在するカテゴリとドキュメント数の一覧を返す。"""
     cur.execute("""
         SELECT category, COUNT(*) as count
         FROM documents
@@ -346,47 +326,13 @@ def get_categories_resource() -> str:
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))  # RenderはPORT環境変数を自動設定
+    # RenderはPORT環境変数を自動設定する
+    port = int(os.getenv("PORT", 8000))
     mcp.run(
         transport="streamable-http",
         host="0.0.0.0",
         port=port,
     )
-```
-
-### 3-2. `requirements.txt` を更新
-
-```bash
-pip freeze > requirements.txt
-```
-
-`requirements.txt` に以下が含まれていることを確認：
-
-```
-fastmcp
-psycopg2-binary
-google-genai
-python-dotenv
-uvicorn
-```
-
-### 3-3. `render.yaml` を作成（オプション）
-
-プロジェクトルートに `render.yaml` を作るとRenderの設定をコード管理できます：
-
-```yaml
-# render.yaml
-services:
-  - type: web
-    name: pgvector-mcp-server
-    runtime: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python mcp_server/server_render.py
-    envVars:
-      - key: GEMINI_API_KEY
-        sync: false  # Renderのダッシュボードで手動設定
-      - key: DATABASE_URL
-        sync: false  # Renderのダッシュボードで手動設定
 ```
 
 ---
@@ -395,10 +341,9 @@ services:
 
 ```bash
 git add .
-git commit -m "feat: add Render deployment files
+git commit -m "feat: add Render deployment server
 
-- Add server_render.py with DATABASE_URL support
-- Add render.yaml for infrastructure as code
+- Add server_render.py with Connection Pooler support
 - Add migrate_to_supabase.py for data migration"
 
 git push origin main
@@ -410,14 +355,13 @@ git push origin main
 
 ### 5-1. Renderアカウント作成
 
-1. [render.com](https://render.com) にアクセス
-2. 「Get Started for Free」→ GitHubでサインアップ
-3. クレジットカード不要
+1. [render.com](https://render.com) → 「Get Started for Free」→ GitHubでサインアップ
+2. クレジットカード不要
 
 ### 5-2. Webサービスを作成
 
 1. ダッシュボードの「New」→「Web Service」
-2. 「Connect a repository」→ GitHubのリポジトリを選択
+2. GitHubリポジトリを選択
 3. 以下を設定：
 
 | 項目 | 値 |
@@ -439,66 +383,71 @@ git push origin main
 | Key | Value |
 |-----|-------|
 | `GEMINI_API_KEY` | `AIza...` |
-| `DATABASE_URL` | SupabaseのConnection URI |
+| `DATABASE_URL` | **Connection PoolerのURI（ポート6543）** |
 
-> **SupabaseのDATABASE_URLの取得方法:**
-> Supabaseダッシュボード → `Settings` → `Database` → `Connection string` → `URI`
-> `postgresql://postgres:パスワード@db.xxxx.supabase.co:5432/postgres`
+> **⚠️ DATABASE_URLは必ずConnection Pooler（ポート6543）のURLを使ってください。**
+> 通常のDB URL（ポート5432）を使うとRenderからの接続がIPv6問題で失敗します。
 
-5. 「Save Changes」でデプロイが自動開始されます
+「Save Changes」でデプロイが自動開始されます。
 
 ### 5-4. デプロイ確認
 
-デプロイが完了すると以下のようなURLが発行されます：
-
-```
-https://pgvector-mcp-server.onrender.com
-```
-
-MCPエンドポイントは：
+ブラウザで以下にアクセスして応答があれば成功です：
 
 ```
 https://pgvector-mcp-server.onrender.com/mcp
 ```
 
-ブラウザでアクセスして応答があればデプロイ成功です。
+> **「Not Acceptable: Client must accept text/event-stream」** と表示されれば正常です。
+> これはブラウザ（MCPクライアント以外）からアクセスしているために出るメッセージで、サーバーは正常に動作しています。
 
 ---
 
-## Step 6: Claude Desktopから接続
+## Step 6: Pythonエージェントから接続確認
 
-`~/Library/Application Support/Claude/claude_desktop_config.json` を更新：
+`13_mcp_http_agent.py` のURLをRenderのURLに変更します：
 
-```json
-{
-  "mcpServers": {
-    "pgvector-search-remote": {
-      "url": "https://pgvector-mcp-server.onrender.com/mcp"
-    }
-  }
-}
+```python
+# 変更前
+MCP_SERVER_URL = "http://localhost:8000/mcp"
+
+# 変更後
+MCP_SERVER_URL = "https://pgvector-mcp-server.onrender.com/mcp"
 ```
 
-Claude Desktopを再起動して、チャットで検索ツールが使えるか確認します：
+```bash
+python 13_mcp_http_agent.py
+```
+
+実行結果：
 
 ```
-「機械学習の評価指標について教えてください」
+タスク: まずカテゴリを確認して、MLカテゴリの評価指標について詳しく教えてください。
+============================================================
+MCPサーバーから3個のツールを取得しました（HTTP経由）
+
+[Step 1]
+  → list_categories({})
+
+[Step 2]
+  → search_by_category({'query': '評価指標', 'category': 'ML'})
+
+[完了] 3ステップで達成
+MLカテゴリの評価指標についてですね...
 ```
+
+`（HTTP経由）` の表示がRenderのMCPサーバーを経由していることの証明です。
 
 ---
 
 ## スリープ対策（オプション）
 
-Renderの無料サービスは15分間アクセスがないとスリープします。スリープを防ぐには定期的にpingを送ります。
+Renderの無料サービスは15分間アクセスがないとスリープします。[UptimeRobot](https://uptimerobot.com)（無料）で5分ごとにpingを送ると常時起動状態を維持できます。
 
-### UptimeRobot（無料）で5分ごとにping
-
-1. [uptimerobot.com](https://uptimerobot.com) に登録（無料）
-2. 「Add New Monitor」→ HTTP(s)を選択
+1. UptimeRobotに登録
+2. 「Add New Monitor」→ HTTP(s)
 3. URL: `https://pgvector-mcp-server.onrender.com/mcp`
 4. Monitoring Interval: `5 minutes`
-
-これでスリープを防ぎ、常時起動状態を維持できます。
 
 ---
 
@@ -506,13 +455,13 @@ Renderの無料サービスは15分間アクセスがないとスリープしま
 
 | エラー | 原因 | 対処 |
 |--------|------|------|
-| `SSL connection required` | Supabase接続でSSLなし | `sslmode="require"` を追加 |
-| `could not connect to server` | DATABASE_URLが間違っている | SupabaseのConnection URIを再確認 |
+| `Network is unreachable` (IPv6) | 通常のDB URL（ポート5432）を使っている | **Connection Pooler URL（ポート6543）に変更** |
+| `SSL connection required` | sslmode未指定 | `sslmode="require"` を追加 |
 | `ModuleNotFoundError` | requirements.txtに不足 | `pip freeze > requirements.txt` して再push |
+| `Not Found` | ルートURL（`/`）にアクセスしている | `/mcp` を付けてアクセス |
+| `Not Acceptable: Client must accept text/event-stream` | ブラウザでアクセスしている | 正常。MCPクライアントからは接続できる |
 | デプロイ後に接続が遅い | Renderのスリープ | UptimeRobotで定期ping |
 | Supabaseがポーズ状態 | 7日間アクセスなし | Supabaseダッシュボードから「Resume」 |
-
----
 
 ---
 
