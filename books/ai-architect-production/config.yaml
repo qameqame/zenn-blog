@@ -1,4 +1,4 @@
-title: "AIシステムの本番運用ガイド"
+title: "AIアーキテクトのための本番運用ガイド — RAGを「使えるシステム」にする技術"
 summary: "RAG・Agentを実装した後に必要な「本番で使えるシステムにする」技術を体系的に学ぶハンズオンガイドです。Evals・Observability・Security・MLOps・Fine-tuningをpgvectorとGeminiを使って手を動かしながら学べます。"
 topics: ["AI", "MLOps", "LLM", "Python", "Langfuse"]
 published: true
