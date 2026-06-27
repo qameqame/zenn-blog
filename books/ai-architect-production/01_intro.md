@@ -4,7 +4,7 @@ title: "はじめに — 本番運用とは何か"
 
 ## このガイドについて
 
-[前作「AI初学者のためのRAG実装ガイド」](https://zenn.dev/qame/books/ai-architect-rag)では、pgvectorとGeminiを使ってRAGシステムをゼロから実装し、Tool Use・AI Agents・MCP・クラウドデプロイまで一気通貫で進めました。
+[前作「AI初学者のためのRAG実装ガイド」](https://zenn.dev/hkame/books/ai-architect-rag)では、pgvectorとGeminiを使ってRAGシステムをゼロから実装し、Tool Use・AI Agents・MCP・クラウドデプロイまで一気通貫で進めました。
 
 本ガイドはその続編です。「動くシステムを作る」から「本番で使えるシステムにする」へ、次のステップを扱います。
 
@@ -55,7 +55,7 @@ RAGやAgentを実装したあと、本番で使おうとすると必ず以下の
 
 ## 前提条件
 
-- [前作](https://zenn.dev/qame/books/ai-architect-rag)のpgvectorチュートリアル完了済み
+- [前作](https://zenn.dev/hkame/books/ai-architect-rag)のpgvectorチュートリアル完了済み
 - Python 3.11・Docker・pgvector の環境が構築済み
 - `.env` に `GEMINI_API_KEY` が設定済み
 

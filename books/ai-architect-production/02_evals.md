@@ -4,7 +4,7 @@ title: "Evals — RAGの回答品質を自動測定する"
 
 ## はじめに
 
-[前作のRAG実装](https://zenn.dev/qame/books/ai-architect-rag/viewer/02_rag)では動くシステムを作りました。しかし「本当に正しく答えられているか」は手動で確認するしかありませんでした。
+[前作のRAG実装](https://zenn.dev/hkame/books/ai-architect-rag/viewer/02_rag)では動くシステムを作りました。しかし「本当に正しく答えられているか」は手動で確認するしかありませんでした。
 
 ```
 【今まで】手動確認
