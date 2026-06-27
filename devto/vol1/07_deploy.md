@@ -5,7 +5,7 @@ tags: rag, python, deployment, cloud
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we built an MCP server that any LLM client can connect to locally. In this article, we'll deploy it to the cloud — making it accessible from anywhere.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-mcp-exposing-pgvector-as-a-reusable-tool-server-2onc), we built an MCP server that any LLM client can connect to locally. In this article, we'll deploy it to the cloud — making it accessible from anywhere.
 
 ```
 Before: localhost:8000 → pgvector (Docker)

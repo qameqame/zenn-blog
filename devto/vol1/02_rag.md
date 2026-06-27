@@ -5,7 +5,7 @@ tags: rag, llm, python, pgvector
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we covered the three core concepts behind RAG. Now let's build it.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-with-pgvector-and-gemini-introduction-c8i), we covered the three core concepts behind RAG. Now let's build it.
 
 By the end of this article you'll have a working RAG pipeline: documents stored as vectors in pgvector, semantic search retrieving the right context, and Gemini generating grounded answers.
 

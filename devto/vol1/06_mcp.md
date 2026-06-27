@@ -5,7 +5,7 @@ tags: mcp, rag, python, llm
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we built AI Agents that autonomously search our pgvector database. One limitation remained: the tools were hardcoded inside our Python scripts. Only our code could use them.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-ai-agents-memory-planning-and-multi-step-reasoning-1kp9), we built AI Agents that autonomously search our pgvector database. One limitation remained: the tools were hardcoded inside our Python scripts. Only our code could use them.
 
 **MCP (Model Context Protocol)** fixes this. It turns our search functions into a standalone server that any LLM client can connect to — Claude Desktop, Gemini agents, or any future client.
 

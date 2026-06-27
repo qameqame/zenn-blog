@@ -5,7 +5,7 @@ tags: rag, architecture, llm, python
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we built a working RAG pipeline. Now let's step back and ask *why* we made each design decision — and what alternatives exist when your requirements change.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-with-pgvector-and-gemini-implementation-3n28), we built a working RAG pipeline. Now let's step back and ask *why* we made each design decision — and what alternatives exist when your requirements change.
 
 ---
 

@@ -5,7 +5,7 @@ tags: rag, llm, python, ai
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we examined the design decisions behind our RAG pipeline. Now we'll give the LLM the ability to call our search functions autonomously — this is **Tool Use**.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-design-decisions-explained-40hd), we examined the design decisions behind our RAG pipeline. Now we'll give the LLM the ability to call our search functions autonomously — this is **Tool Use**.
 
 ---
 

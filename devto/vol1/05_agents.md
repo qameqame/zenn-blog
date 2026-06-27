@@ -5,7 +5,7 @@ tags: rag, ai, python, llm
 series: RAG Implementation Guide for AI Architects
 ---
 
-In the [previous article](https://dev.to), we gave the LLM the ability to call tools autonomously. Now we'll build a proper **AI Agent** — one that remembers past interactions, plans ahead, and evaluates its own output.
+In the [previous article](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-tool-use-let-the-llm-search-autonomously-29ho), we gave the LLM the ability to call tools autonomously. Now we'll build a proper **AI Agent** — one that remembers past interactions, plans ahead, and evaluates its own output.
 
 ---
 
