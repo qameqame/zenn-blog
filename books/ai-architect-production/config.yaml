@@ -10,4 +10,6 @@ chapters:
   - 04_security
   - 05_mlops
   - 06_finetuning
-  - 07_summary
+  - 07_multiagent
+  - 08_governance
+  - 09_summary
