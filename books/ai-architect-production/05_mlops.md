@@ -680,7 +680,7 @@ jobs:
 
 > **注意:** GitHubの「Settings」はアカウント全体の設定と、リポジトリごとの設定の2種類があります。Secretsはリポジトリごとの設定にあります。
 
-1. `github.com/qameqame/pgvector-tutorial` にアクセス（アカウント設定ではなくリポジトリのページ）
+1. GitHubでリポジトリのページを開く（アカウント設定ではなくリポジトリのページ）
 2. リポジトリの「**Settings**」タブをクリック
 3. 左サイドバーの「**Secrets and variables**」→「**Actions**」
 4. 「**New repository secret**」をクリック
@@ -741,7 +741,7 @@ git push origin main
 
 ### 7-2. 実行状況の確認
 
-1. `github.com/qameqame/pgvector-tutorial` にアクセス
+1. GitHubでリポジトリのページを開く（アカウント設定ではなくリポジトリのページ）
 2. 「**Actions**」タブをクリック
 3. ワークフローの実行履歴が表示されます
 
