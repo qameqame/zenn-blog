@@ -3,7 +3,7 @@ title: "MCPツールにおける「検索コントラクト」の明示とは"
 emoji: "📋"
 type: "tech"
 topics: ["mcp", "rag", "llm", "python", "設計"]
-published: false
+published: true
 ---
 
 ## はじめに
