@@ -8,7 +8,7 @@ published: true
 
 ## はじめに
 
-先日、pgvectorの検索機能をMCPサーバーとして公開する記事を[Dev.to](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-mcp-exposing-pgvector-as-a-reusable-tool-server-2onc)に投稿したところ、「検索コントラクト」に関するフィードバックコメントをコメントをいただきました。
+先日、pgvectorの検索機能をMCPサーバーとして公開する記事を[Dev.to](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-mcp-exposing-pgvector-as-a-reusable-tool-server-2onc)に投稿したところ、「検索コントラクト」に関するフィードバックコメントをいただきました。
 
 > pgvector as an MCP tool is a nice boundary because retrieval becomes a reusable capability instead of being buried inside one app. I would make the retrieval contract explicit: corpus, filters, scoring, freshness, and why the returned chunks are safe to use for the current task.
 >
@@ -16,7 +16,7 @@ published: true
 
 **「検索コントラクト（retrieval contract）を明示すべき」** という指摘です。
 
-最近はAIでコメントを書いているケースも少なくなく、このコメントもAIっぽいですが、興味深いコメントだったため、本記事では「検索コントラクト」とは何か・なぜ重要か・どう実装するかを整理します。
+Dev.toではAIでコメントを書いているケースも少なくなく、このコメントもAIっぽいです（とか言って、AIでなかったらスミマセン）が、興味深いコメントだったため、本記事では「検索コントラクト」とは何か・なぜ重要か・どう実装するかを整理します。
 
 ---
 
