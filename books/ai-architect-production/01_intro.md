@@ -2,6 +2,11 @@
 title: "はじめに — 本番運用とは何か"
 ---
 
+:::message
+本書のソースコードはGitHubで公開しています。
+[github.com/qameqame/pgvector-tutorial](https://github.com/qameqame/pgvector-tutorial)
+:::
+
 ## このガイドについて
 
 [前作「AI初学者のためのRAG実装ガイド」](https://zenn.dev/hkame/books/ai-architect-rag)では、pgvectorとGeminiを使ってRAGシステムをゼロから実装し、Tool Use・AI Agents・MCP・クラウドデプロイまで一気通貫で進めました。

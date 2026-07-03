@@ -2,6 +2,11 @@
 title: "はじめに — このガイドについて"
 ---
 
+:::message
+本書のソースコードはGitHubで公開しています。
+[github.com/qameqame/pgvector-tutorial](https://github.com/qameqame/pgvector-tutorial)
+:::
+
 ## このガイドでやること
 
 LLMを使ったアプリケーション開発を始めると、避けて通れない構成があります。**RAG（Retrieval-Augmented Generation）** です。
