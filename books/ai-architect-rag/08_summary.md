@@ -129,6 +129,22 @@ Gemini Embedding / LLM
 
 ---
 
+## 後続編
+
+本書の続編として、RAGシステムを「本番で使えるシステム」にするための技術を体系的に解説しています。
+
+**[AIアーキテクトのための本番運用ガイド](https://zenn.dev/hkame/books/ai-architect-production)**
+
+| 章 | 内容 |
+|----|------|
+| 第2章 | Evals — RAGの回答品質を自動測定する |
+| 第3章 | Observability — Langfuse v4でトレース |
+| 第4章 | Security — ガードレール・プロンプトインジェクション対策 |
+| 第5章 | MLOps / LLMOps — CI/CDパイプライン |
+| 第6章 | Fine-tuning — LoRAでモデルを特化させる |
+| 第7章 | マルチエージェント — オーケストレーター設計 |
+| 第8章 | ガバナンス — EU AI Act対応 |
+
 ## 参考リンク
 
 - [pgvector GitHub](https://github.com/pgvector/pgvector)
