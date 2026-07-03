@@ -1,9 +1,9 @@
 ---
-title: "LoRA・QLoRAを図解する — Fine-tuningはなぜCPUで動くのか"
+title: "LoRA・QLoRAを図解する"
 emoji: "🧠"
 type: "tech"
 topics: ["lora", "finetuning", "llm", "python", "機械学習"]
-published: false
+published: true
 ---
 
 ## はじめに
@@ -13,7 +13,7 @@ published: false
 > RAG keeps your system truthful today; fine-tuning makes it consistent tomorrow.
 > （RAGは今日システムを誠実に保つ。Fine-tuningは明日システムを一貫させる）
 
-本記事では、Fine-tuningの中核技術であるLoRAとQLoRAの仕組みを図解しながら、「なぜCPUでも動くのか」「GPUとどう使い分けるか」を整理します。
+本記事では、Fine-tuningの中核技術であるLoRAとQLoRAの仕組みを図解で整理します。また、先日行った検証でLoRAをCPUで動作させており、「なぜCPUでも動くのか」「GPUとどう使い分けるか」にも触れていきます。
 
 実装は[AI初学者のためのRAG実装ガイド](https://zenn.dev/hkame/books/ai-architect-rag)の続編として、[pgvector-tutorial](https://github.com/qameqame/pgvector-tutorial)の `finetuning/` フォルダに含まれています。
 
