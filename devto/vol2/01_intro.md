@@ -2,7 +2,7 @@
 title: Taking RAG to Production — Evals, Observability, Security, and Beyond (Introduction)
 published: false
 tags: ai, mlops, llm, python
-series: AI Architect's Production Operations Guide
+series: Production Operations Guide for AI Architects
 ---
 
 ## About This Guide

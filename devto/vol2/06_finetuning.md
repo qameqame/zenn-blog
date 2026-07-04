@@ -2,7 +2,7 @@
 title: Fine-tuning — Domain-Specializing Models with LoRA
 published: false
 tags: ai, mlops, llm, python
-series: AI Architect's Production Operations Guide
+series: Production Operations Guide for AI Architects
 ---
 
 ## Introduction

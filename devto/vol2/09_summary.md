@@ -2,7 +2,7 @@
 title: Summary — Your Next Steps as an AI Architect
 published: false
 tags: ai, mlops, llm, python
-series: AI Architect's Production Operations Guide
+series: Production Operations Guide for AI Architects
 ---
 
 ## What We Built in This Guide

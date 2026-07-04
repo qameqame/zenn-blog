@@ -2,7 +2,7 @@
 title: Security — Guardrails and Prompt Injection Defense for Production RAG
 published: false
 tags: ai, mlops, llm, python
-series: AI Architect's Production Operations Guide
+series: Production Operations Guide for AI Architects
 ---
 
 ## Introduction

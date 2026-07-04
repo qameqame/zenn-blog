@@ -2,7 +2,7 @@
 title: MLOps / LLMOps — CI/CD Pipelines for Continuous Quality Assurance
 published: false
 tags: ai, mlops, llm, python
-series: AI Architect's Production Operations Guide
+series: Production Operations Guide for AI Architects
 ---
 
 ## Introduction
