@@ -7,7 +7,7 @@ series: Production Operations Guide for AI Architects
 
 ## Introduction
 
-Through [Chapter 6 (Fine-tuning)](./06_finetuning), we focused on improving a single AI system. This chapter introduces **multi-agent** design, where multiple Agents collaborate on complex tasks.
+Through [Chapter 6 (Fine-tuning)](https://dev.to/hiroki-kameyama/fine-tuning-domain-specializing-models-with-lora-180g), we focused on improving a single AI system. This chapter introduces **multi-agent** design, where multiple Agents collaborate on complex tasks.
 
 Our previous Agent implementations used a "one Agent does everything" approach. For complex tasks, putting all responsibility on a single Agent has limits.
 

@@ -7,7 +7,7 @@ series: Production Operations Guide for AI Architects
 
 ## Introduction
 
-In [Chapter 3 (Observability)](./03_observability), we made system behavior visible. Now we tackle *handling malicious input*. RAG, Agent, and MCP systems all require security before going to production.
+In [Chapter 3 (Observability)](https://dev.to/hiroki-kameyama/observability-tracing-rag-and-agents-with-langfuse-v4-5hc), we made system behavior visible. Now we tackle *handling malicious input*. RAG, Agent, and MCP systems all require security before going to production.
 
 ```
 [Before] Implementation assumed well-formed input

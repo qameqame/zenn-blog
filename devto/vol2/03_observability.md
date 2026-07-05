@@ -1,13 +1,13 @@
 ---
 title: Observability — Tracing RAG and Agents with Langfuse v4
-published: false
+published: true
 tags: ai, mlops, llm, python
 series: Production Operations Guide for AI Architects
 ---
 
 ## Introduction
 
-In [Chapter 2 (Evals)](./02_evals), we measured answer *quality*. Now we add Observability — making behavior *visible*.
+In [Chapter 2 (Evals)](https://dev.to/hiroki-kameyama/evals-automatically-measuring-rag-answer-quality-13l2), we measured answer *quality*. Now we add Observability — making behavior *visible*.
 
 ```
 [Evals]

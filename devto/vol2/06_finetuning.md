@@ -7,7 +7,7 @@ series: Production Operations Guide for AI Architects
 
 ## Introduction
 
-In [Chapter 5 (MLOps)](./05_mlops), we built a CI/CD pipeline. This chapter explores a different approach: fine-tuning — training the model itself on your own data.
+In [Chapter 5 (MLOps)](https://dev.to/hiroki-kameyama/mlops-llmops-cicd-pipelines-for-continuous-quality-assurance-46d1), we built a CI/CD pipeline. This chapter explores a different approach: fine-tuning — training the model itself on your own data.
 
 ```
 [RAG]

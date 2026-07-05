@@ -1,13 +1,13 @@
 ---
 title: Taking RAG to Production — Evals, Observability, Security, and Beyond (Introduction)
-published: false
+published: true
 tags: ai, mlops, llm, python
 series: Production Operations Guide for AI Architects
 ---
 
 ## About This Guide
 
-In the previous guide, [*RAG Implementation Guide for AI Architects*](https://dev.to/hkame), we implemented a RAG system from scratch using pgvector and Gemini, then extended it through Tool Use, AI Agents, MCP, and cloud deployment.
+In the previous guide, [*Building a RAG System from Scratch with pgvector and Gemini*](https://dev.to/hiroki-kameyama/building-a-rag-system-from-scratch-with-pgvector-and-gemini-introduction-c8i), we implemented a RAG system from scratch using pgvector and Gemini, then extended it through Tool Use, AI Agents, MCP, and cloud deployment.
 
 This guide is the sequel. It takes you from *"building a system that works"* to *"making a system that works in production"*.
 

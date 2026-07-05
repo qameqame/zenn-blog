@@ -7,7 +7,7 @@ series: Production Operations Guide for AI Architects
 
 ## Introduction
 
-Through [Chapter 7 (Multi-Agent)](./07_multiagent), we have a complete, functioning AI system. The final step is building *organizational* infrastructure to operate AI safely over time.
+Through [Chapter 7 (Multi-Agent)](https://dev.to/hiroki-kameyama/multi-agent-implementing-the-orchestrator-x-worker-pattern-38gd), we have a complete, functioning AI system. The final step is building *organizational* infrastructure to operate AI safely over time.
 
 ```
 [Before] Technical safety

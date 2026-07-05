@@ -7,7 +7,7 @@ series: Production Operations Guide for AI Architects
 
 ## Introduction
 
-Through [Chapter 4 (Security)](./04_security), we implemented Evals, Observability, and Security as individual components. In this chapter, we integrate them into a system for *continuous* operations.
+Through [Chapter 4 (Security)](https://dev.to/hiroki-kameyama/security-guardrails-and-prompt-injection-defense-for-production-rag-3h9m), we implemented Evals, Observability, and Security as individual components. In this chapter, we integrate them into a system for *continuous* operations.
 
 LLMOps shares DNA with MLOps but faces fundamentally different challenges. Prompts are code, Evals replace unit tests, provider switching is routine, and costs are unpredictable.
 
