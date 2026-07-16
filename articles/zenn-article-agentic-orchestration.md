@@ -1,5 +1,5 @@
 ---
-title: "Claude Certified Architect対策:エージェント設計・オーケストレーションをハンズオンで学ぶ"
+title: "エージェント設計・オーケストレーションをハンズオンで学ぶ"
 emoji: "🤖"
 type: "tech"
 topics: ["claude", "anthropic", "ai", "python", "agent"]
