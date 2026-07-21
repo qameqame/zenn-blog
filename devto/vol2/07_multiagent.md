@@ -1,6 +1,6 @@
 ---
 title: Multi-Agent — Implementing the Orchestrator × Worker Pattern
-published: false
+published: true
 tags: ai, mlops, llm, python
 series: Production Operations Guide for AI Architects
 ---

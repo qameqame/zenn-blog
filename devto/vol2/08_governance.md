@@ -1,6 +1,6 @@
 ---
 title: AI Governance — EU AI Act Compliance, Risk Assessment, and Audit Logging
-published: false
+published: true
 tags: ai, mlops, llm, python
 series: Production Operations Guide for AI Architects
 ---
